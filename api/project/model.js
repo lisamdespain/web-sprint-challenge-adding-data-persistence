@@ -11,9 +11,15 @@ function getAllProjects(){
     )
 }
 
-async function addProject(project){
-    const [project_id] = await db('projects').insert(project)
-    return getAllProjects().where({project_id}).first();
+function addProject(project){
+   return db('projects').insert(project)
+    .then(([project_id]) => db('projects').where({project_id}))
+    .then(results =>
+        results.map(project => ({
+            ...project,
+            project_completed: project.project_completed ? true : false
+        }))
+    )
 }
 
 module.exports = {

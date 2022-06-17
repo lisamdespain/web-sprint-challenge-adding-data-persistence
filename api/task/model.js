@@ -16,13 +16,16 @@ function getTasks(){
 }
 
 
-async function addTask(task){
-  
-
-return db('tasks').insert(task).then(([task_id])=>{
-    return getTasks().where({task_id}).first();
-  })
-}
+function addTask(task){
+    return db('tasks').insert(task)
+     .then(([task_id]) => db('tasks').where({task_id}))
+     .then(results =>
+         results.map(task => ({
+             ...task,
+             task_completed: task.task_completed ? true : false
+         }))
+     )
+ }
 
 module.exports = {
     getTasks,
