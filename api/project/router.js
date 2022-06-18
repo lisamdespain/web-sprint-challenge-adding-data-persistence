@@ -15,7 +15,7 @@ router.get('/', (req, res) =>{
 router.post('/', (req,res) =>{
     Projects.addProject(req.body)
     .then(project =>{
-        res.status(201).json(project)
+        res.status(201).json(project[0])
     }).catch(err =>{
         res.status(500).json({message: 'Error from projects post'})
     })

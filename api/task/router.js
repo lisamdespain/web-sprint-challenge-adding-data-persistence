@@ -17,7 +17,7 @@ router.get('/', (req, res) =>{
 router.post('/', (req, res) =>{
     Tasks.addTask(req.body)
     .then(task =>{
-        res.status(201).json(task)
+        res.status(201).json(task[0])
     }).catch(err =>{
         res.status(500).json({message: 'Error coming from tasks post'})
     })

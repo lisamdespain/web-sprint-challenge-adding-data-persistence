@@ -13,7 +13,7 @@ function getAllProjects(){
 
 function addProject(project){
    return db('projects').insert(project)
-    .then(([project_id]) => db('projects').where({project_id}))
+    .then(([project_id]) => db('projects').where({project_id}).select('project_name', 'project_description', 'project_completed'))
     .then(results =>
         results.map(project => ({
             ...project,
